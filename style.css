@@ -5,17 +5,43 @@
     width: 100%;
     height: 100vh;
     position: relative;
+    
 }
 
-/* Rules not yet done
+
 #inner-background-wrapper{
     background: url(assets/map.png);
     background-size: contain;
     background-repeat: no-repeat;
-    width: 100%;
+    width: 80%;
     height: 100vh;
-    display: none;
-} */
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    
+    /* display: none; */
+}
+
+
+p {
+    color: #534741;
+    font-family: 'Forum', cursive;
+    font-size: 30px;
+    /* width: 30%; */
+    text-align: center;
+    /* margin-right: 50px; */
+    /* line-height: 1.2em; */
+}
+
+#chakra-image{
+    width: 400px;
+    height: 400px;
+    /* margin-right: 90px; */
+    /* margin-top: 180px; */
+}
 
 #cell-wrapper {
     display: flex;
@@ -28,7 +54,7 @@
 .card-row{
     width: 80%;
     text-align: center;
-    margin: -10px 0;
+    margin: -20px 0;
 }
 
 .cell{
@@ -75,6 +101,7 @@
     font-family: 'Forum', cursive;
     font-size: 30px;
     width: 50%;
+    text-align: left;
 }
 
 #player-name{
