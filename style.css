@@ -1,128 +1,124 @@
 #background-wrapper {
-    background: url(assets/background.png);
-    background-size: cover;
-    background-repeat: no-repeat;
-    width: 100%;
-    height: 100vh;
-    position: relative;
-    
+  background: url(assets/background.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100vh;
+  position: relative;
 }
 
+#inner-background-wrapper {
+  background: url(assets/map.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 80%;
+  height: 100vh;
+  margin: 0 auto;
+  position: relative;
 
-#inner-background-wrapper{
-    background: url(assets/map.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-    width: 80%;
-    height: 100vh;
-    margin: 0 auto;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-    
-    /* display: none; */
+  /* display: none; */
 }
 
+.form-group {
+  color: #534741;
+  font-family: "Forum", cursive;
+  font-size: 30px;
+  text-align: center;
+  position: absolute;
+  width: 30%;
+  top: 480px;
+  left: 580px;
+}
 
-p {
-    color: #534741;
-    font-family: 'Forum', cursive;
-    font-size: 30px;
-    /* width: 30%; */
+#button{
+    width: 220px;
+    margin-top: 20px;
+
+}
+
+.form-control{
+    height: 60px;
+    font-size: 25px;
     text-align: center;
-    /* margin-right: 50px; */
-    /* line-height: 1.2em; */
-}
-
-#chakra-image{
-    width: 400px;
-    height: 400px;
-    /* margin-right: 90px; */
-    /* margin-top: 180px; */
 }
 
 #cell-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
 }
 
-.card-row{
-    width: 80%;
-    text-align: center;
-    margin: -20px 0;
+.card-row {
+  width: 80%;
+  text-align: center;
+  margin: -20px 0;
 }
 
-.cell{
-    width: 24%;
-    display: inline-block;
-    content:url(assets/chakra.png)
-
+.cell {
+  width: 24%;
+  display: inline-block;
+  content: url(assets/chakra.png);
 }
 
-#progress-bar-wrapper{
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
+#progress-bar-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
 }
 
 .progress {
-    width: 50%;
-    height: 30px;
+  width: 50%;
+  height: 30px;
 }
 
-.progress-row-1{
-    
-    margin-left: 30px;
-    margin-right: 100px;
+.progress-row-1 {
+  margin-left: 30px;
+  margin-right: 100px;
 }
 
-.progress-row-2{
-    
-    margin-right: 30px;
-    margin-left: 100px;
+.progress-row-2 {
+  margin-right: 30px;
+  margin-left: 100px;
 }
 
-#name-wrapper{
-    display: flex;
-    justify-content: center;
-    width: 100%;
+#name-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 .name {
-    color: white;
-    margin-bottom: 0px;
-    margin-left: 30px;
-    padding-top: 40px;
-    font-family: 'Forum', cursive;
-    font-size: 30px;
-    width: 50%;
-    text-align: left;
+  color: white;
+  margin-bottom: 0px;
+  margin-left: 30px;
+  padding-top: 40px;
+  font-family: "Forum", cursive;
+  font-size: 30px;
+  width: 50%;
+  text-align: left;
 }
 
-#player-name{
-    text-align: right;
-    margin-right: 30px;
+#player-name {
+  text-align: right;
+  margin-right: 30px;
 }
 
 #name-out-com {
-    font-family: 'Forum', cursive;
-    font-size: 30px;
-    color: white;
-    position: absolute;
-    top: 130px;
-    right: 630px;
+  font-family: "Forum", cursive;
+  font-size: 30px;
+  color: white;
+  position: absolute;
+  top: 130px;
+  right: 630px;
 }
 
 #name-out-player {
-    font-family: 'Forum', cursive;
-    font-size: 30px;
-    color: white;
-    position: absolute;
-    bottom: 30px;
-    right: 610px;
+  font-family: "Forum", cursive;
+  font-size: 30px;
+  color: white;
+  position: absolute;
+  bottom: 30px;
+  right: 610px;
 }
