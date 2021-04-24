@@ -79,11 +79,12 @@
 .card-row {
   width: 80%;
   text-align: center;
-  margin: -20px 0;
+  margin: 5px 0;
 }
 
 .cell {
-  width: 24%;
+  width: 16%;
+  margin: 0px 20px 19px 47px;
   display: inline-block;
   content: url(assets/chakra.png);
 }
@@ -146,11 +147,42 @@
   font-size: 30px;
   color: white;
   position: absolute;
-  bottom: 29px;
-  right: 641px;
+  bottom: 20px;
+  width: 100%;
+  text-align: center;
   
 }
 
 .on-off{
   display: none;
+}
+
+/* Chakra Element class */
+
+.fire {
+  content: url(assets/fire.png)
+}
+
+.water {
+  content: url(assets/water.png)
+}
+
+.wind {
+  content: url(assets/wind.png)
+}
+
+.earth {
+  content: url(assets/earth.png)
+}
+
+.health{
+  content: url(assets/health.png)
+}
+
+.lightning {
+  content: url(assets/lightning.png)
+}
+
+.back-of-card {
+  content: url(assets/chakra.png)
 }
