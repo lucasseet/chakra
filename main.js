@@ -1,6 +1,9 @@
 //Chakra Elements
 let cardElements = ['fire', 'water', 'wind', 'earth', 'lightning', 'health']
-console.log(cardElements)
+
+//Create empty Player & Com array
+const playerDeckArray = []
+const comDeckArray = []
 
 window.onload = function () {
   console.log("All Linked!");
@@ -16,9 +19,9 @@ window.onload = function () {
   let playerName = document.querySelector('#player-name')
   let playerNameDoor = document.querySelector('#name-out-player')
   let comCells = document.querySelectorAll('.com-cell')
-  let comDeck = document.querySelectorAll('.com-deck')
   let playerCells = document.querySelectorAll('.player-cell')
-  let playerDeck = document.querySelectorAll('.player-deck')
+  
+
 
   //Attached event handler to Landing page playnow button
   landingPagePlayNow.onclick = (event) => {
@@ -58,10 +61,6 @@ window.onload = function () {
 
 
       // Start Game, Distribute cards
-      
-      //Create empty Player & Com array
-      const playerDeckArray = []
-      const comDeckArray = []
 
       //Create a deck with random element pushing it into player deck
       for (let i = 0; i < playerCells.length; i++) {
@@ -77,10 +76,10 @@ window.onload = function () {
 
       //Make player cards appear in DOM
       playerCells.forEach((card, index) => {
-        const element = playerDeckArray[index]
-        card.classList.add(element)
-        card.addEventListener('click', () => handleSelect(element))
-        console.log(`Clicked ${element}`)
+        const playerCard = playerDeckArray[index]
+        card.classList.add(playerCard)
+        card.addEventListener('click', () => handleSelect(playerCard))
+        console.log(`Clicked ${playerCard}`)
       })
 
 
@@ -92,35 +91,66 @@ window.onload = function () {
 
 //Get random element -> generate random number btn 0 & length of element
 function randomElement(){
-  let randomNum = Math.floor(Math.random() * (cardElements.length -1))
+  let randomNum = Math.floor(Math.random() * cardElements.length)
   return cardElements[randomNum]
 }
 
-//Making a move function
-function makeMove(event) {
-    event.stopPropagation()
-    console.log('making a move now!')
-}
 // Player Clicks 
-function handleSelect() {
+function handleSelect(playerCard) {
   let comCard = enemyMove ()
-  console.log(comCard)
+  
+  if(playerWins(playerCard, comCard)) {
+    //com gets 2 dmg
+    console.log("com gets 2 dmg")
+  } else {
+    //player gets 2 dmg
+    console.log(`${playerCard} gets 2 dmg from ${comCard}`)
+  }
+}
+
+ //Make player cards appear in DOM
+//  playerCells.forEach((card, index) => {
+//   const playerCard = playerDeckArray[index]
+//   card.classList.add(playerCard)
+//   card.addEventListener('click', () => handleSelect(playerCard))
+//   console.log(`Clicked ${playerCard}`)
+// })
+
+// function that returns a number between 0 to 3
+function generateRandomIndex() {
+  let randomNum = Math.floor(Math.random() * 4)
+  console.log(randomNum)
+  return randomNum
 }
 
 // Enemy move
 function enemyMove() {
-  let comDeck = document.querySelectorAll('.com-deck')
-  const randomIndex = generateRandomIndex()
-  const cardElement = comDeck[randomIndex]
+  let comCells = document.querySelectorAll('.com-cell')
+  const randomIndex = generateRandomIndex() // function for random index
+  const comCard = comDeckArray[randomIndex]
+  randomComCells = comCells[randomIndex]
+  randomComCells.classList.add(comCard)
+  return comCard
 }
 
-// function that returns a number between 0 to 3
-function generateRandomIndex() {
-  let randomNum = Math.floor(Math.random() * 3)
-  console.log(randomNum)
+function playerWins(playerCard, comCard){
+  
+  const losingRules = {
+    fire:['water'],
+    water:['earth'],
+    earth:['lightning'],
+    lightning:['wind'],
+    wind:['fire'],
+  }
+
+  const elementsThatDefeatPlayer = losingRules[playerCard]
+
+  if(elementsThatDefeatPlayer.includes(comCard)) {
+    //player lose
+    console.log(`player lose`)
+  }else {
+    //player wins
+    console.log(`player wins`)
+  }
 }
-
-// function playerWins(playerCard, comCard) {
-
-// }
 
