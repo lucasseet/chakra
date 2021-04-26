@@ -1,9 +1,37 @@
+//Outer
+let comHealthBar = document.querySelector('#com-health')
+let playerHealthBar = document.querySelector('#player-health')
+
 //Chakra Elements
 let cardElements = ['fire', 'water', 'wind', 'earth', 'lightning', 'health']
 
 //Create empty Player & Com array
 const playerDeckArray = []
 const comDeckArray = []
+
+//class
+class Player {
+  name = ""
+  health = 100
+
+  constructor(name, health){
+    this.name = name
+    this.health = health
+  }
+
+  damage(enemy){
+    if(enemy.health !== 0) {
+      enemy.health -= 20
+      console.log(enemy.health)
+    } else if (enemy.health === 0) {
+      alert("You Win")
+    }
+  }
+}
+
+let computer = new Player("Com", 100)
+let player = new Player("player", 100)
+
 
 window.onload = function () {
   console.log("All Linked!");
@@ -20,6 +48,7 @@ window.onload = function () {
   let playerNameDoor = document.querySelector('#name-out-player')
   let comCells = document.querySelectorAll('.com-cell')
   let playerCells = document.querySelectorAll('.player-cell')
+
   
 
 
@@ -78,8 +107,8 @@ window.onload = function () {
       playerCells.forEach((card, index) => {
         const playerCard = playerDeckArray[index]
         card.classList.add(playerCard)
-        card.addEventListener('click', () => handleSelect(playerCard))
-        console.log(`Clicked ${playerCard}`)
+        card.addEventListener('click', handleSelect)
+        
       })
 
 
@@ -96,25 +125,30 @@ function randomElement(){
 }
 
 // Player Clicks 
-function handleSelect(playerCard) {
+function handleSelect(event) {
   let comCard = enemyMove ()
-  
+  let target = event.target
+  let playerCard = target.classList[2]
+
+  if(playerCard === "health"){
+    console.log("20")
+    return
+  }
+
+
   if(playerWins(playerCard, comCard)) {
     //com gets 2 dmg
-    console.log("com gets 2 dmg")
+    player.damage(computer)
+    comHealthBar.style.width = `${computer.health}%`
   } else {
     //player gets 2 dmg
-    console.log(`${playerCard} gets 2 dmg from ${comCard}`)
+    computer.damage(player)
+    playerHealthBar.style.width = `${player.health}%`
+    playerHealthBar.innerHTML = `${player.health}%`
   }
+  setTimeout(function(){ newCardGenerator(playerCard); }, 500);
+  
 }
-
- //Make player cards appear in DOM
-//  playerCells.forEach((card, index) => {
-//   const playerCard = playerDeckArray[index]
-//   card.classList.add(playerCard)
-//   card.addEventListener('click', () => handleSelect(playerCard))
-//   console.log(`Clicked ${playerCard}`)
-// })
 
 // function that returns a number between 0 to 3
 function generateRandomIndex() {
@@ -152,5 +186,38 @@ function playerWins(playerCard, comCard){
     //player wins
     console.log(`player wins`)
   }
+}
+
+//function to replace old with new card
+function newCardGenerator(playerCard) {
+  let playerCells = document.querySelectorAll('.player-cell')
+  // let comCells = document.querySelectorAll('.com-cell')
+  
+
+  //random card
+  let newCard = randomElement()
+  //get playercard array index
+  let playerCardIndex = playerDeckArray.indexOf(playerCard)
+  console.log("player card is " + playerCard)
+  console.log(playerDeckArray)
+  console.log("player card array index " + playerCardIndex)
+  //replace player card with newly generated card (in system array)
+  playerDeckArray[playerCardIndex] = newCard
+  console.log("System array " + playerDeckArray)
+  console.log(playerCardIndex)
+  console.log(playerCells.length)
+  //replace player card with newly generated card (on-screen)
+  //replace old classlist with new e.g. fire to water
+  playerCells[playerCardIndex].classList.remove(playerCard)
+  playerCells[playerCardIndex].classList.add(newCard)
+  console.log("on-screen array " + playerDeckArray)
+
+  // //get comcard array index
+  // let comCardIndex =  comDeckArray.indexOf(comCard)
+  // let backOfCard = "back-of-card"
+
+  // comCells[comCardIndex].classList.add(backOfCard)
+  
+
 }
 

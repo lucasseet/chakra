@@ -110,6 +110,12 @@
   margin-left: 100px;
 }
 
+.progress-bar{
+  font-family: "Forum", cursive;
+  font-size: 25px;
+  color:saddlebrown
+}
+
 #name-wrapper {
   display: flex;
   justify-content: center;
