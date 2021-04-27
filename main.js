@@ -1,6 +1,9 @@
 //Outer
 let comHealthBar = document.querySelector('#com-health')
 let playerHealthBar = document.querySelector('#player-health')
+let playerCells = document.querySelectorAll('.player-cell')
+let comCells = document.querySelectorAll('.com-cell')
+let fightDescription = document.querySelector('#fight-description')
 
 //Chakra Elements
 let cardElements = ['fire', 'water', 'wind', 'earth', 'lightning', 'health']
@@ -131,21 +134,36 @@ function handleSelect(event) {
   let playerCard = target.classList[2]
 
   if(playerCard === "health"){
-    console.log("20")
+    playerHealthBar.style.width = `${player.health}%`
+    playerHealthBar.innerHTML = `${player.health}%`
+    player.health += 20
+    console.log(`player add 20 health`)
+    descriptionAppear(playerCard, comCard)
+    setTimeout(function(){ newCardGenerator(playerCard); }, 500);
     return
   }
 
-
-  if(playerWins(playerCard, comCard)) {
-    //com gets 2 dmg
-    player.damage(computer)
+  if(comCard === "health"){
     comHealthBar.style.width = `${computer.health}%`
-  } else {
-    //player gets 2 dmg
-    computer.damage(player)
+    comHealthBar.innerHTML = `${computer.health}%`
+    computer.health += 20
+    descriptionAppear(playerCard, comCard)
+    setTimeout(function(){ newCardGenerator(playerCard); }, 500);
+  }
+
+  if(playerCard === comCard){
+    comHealthBar.style.width = `${computer.health}%`
+    comHealthBar.innerHTML = `${computer.health}%`
+    computer.health -= 10
+
     playerHealthBar.style.width = `${player.health}%`
     playerHealthBar.innerHTML = `${player.health}%`
+    player.health -= 10
   }
+
+
+  playerWins(playerCard, comCard)
+  descriptionAppear(playerCard, comCard)
   setTimeout(function(){ newCardGenerator(playerCard); }, 500);
   
 }
@@ -153,71 +171,79 @@ function handleSelect(event) {
 // function that returns a number between 0 to 3
 function generateRandomIndex() {
   let randomNum = Math.floor(Math.random() * 4)
-  console.log(randomNum)
   return randomNum
 }
 
 // Enemy move
 function enemyMove() {
-  let comCells = document.querySelectorAll('.com-cell')
   const randomIndex = generateRandomIndex() // function for random index
-  const comCard = comDeckArray[randomIndex]
+  //generate a random element from comdeckarray
+  var comCard = comDeckArray[randomIndex]
+  // console.log("this is comCard " + comCard)
+  //generate a random htmlDiv Element
   randomComCells = comCells[randomIndex]
+  //let element appear in DOM by inserting class into HTML div element
   randomComCells.classList.add(comCard)
+  //let DOM card be back of card
+  setTimeout(function(){ 
+  randomComCells.classList.remove();
+  randomComCells.classList.add("back-of-card")
+  }, 3000); 
   return comCard
 }
 
 function playerWins(playerCard, comCard){
   
   const losingRules = {
-    fire:['water'],
-    water:['earth'],
-    earth:['lightning'],
-    lightning:['wind'],
-    wind:['fire'],
+    fire:['water','earth'],
+    water:['earth','lightning'],
+    earth:['wind','lightning'],
+    lightning:['wind','fire'],
+    wind:['fire','water'],
   }
-
+  // console.log('this is commm card ' + comCard)
   const elementsThatDefeatPlayer = losingRules[playerCard]
 
   if(elementsThatDefeatPlayer.includes(comCard)) {
-    //player lose
-    console.log(`player lose`)
+    computer.damage(player)
+    playerHealthBar.style.width = `${player.health}%`
+    playerHealthBar.innerHTML = `${player.health}%`
+    console.log(`computer damage player`)
   }else {
-    //player wins
-    console.log(`player wins`)
+    player.damage(computer)
+    comHealthBar.style.width = `${computer.health}%`
+    comHealthBar.innerHTML = `${computer.health}%`
+    console.log(`player damage computer`)
   }
 }
 
 //function to replace old with new card
 function newCardGenerator(playerCard) {
-  let playerCells = document.querySelectorAll('.player-cell')
-  // let comCells = document.querySelectorAll('.com-cell')
-  
-
   //random card
   let newCard = randomElement()
   //get playercard array index
   let playerCardIndex = playerDeckArray.indexOf(playerCard)
-  console.log("player card is " + playerCard)
-  console.log(playerDeckArray)
-  console.log("player card array index " + playerCardIndex)
+  // console.log("this is player card " + playerCard)
   //replace player card with newly generated card (in system array)
   playerDeckArray[playerCardIndex] = newCard
-  console.log("System array " + playerDeckArray)
-  console.log(playerCardIndex)
-  console.log(playerCells.length)
   //replace player card with newly generated card (on-screen)
   //replace old classlist with new e.g. fire to water
+  // console.log(playerCard)
   playerCells[playerCardIndex].classList.remove(playerCard)
   playerCells[playerCardIndex].classList.add(newCard)
-  console.log("on-screen array " + playerDeckArray)
-
-  // //get comcard array index
-  // let comCardIndex =  comDeckArray.indexOf(comCard)
-  // let backOfCard = "back-of-card"
-
-  // comCells[comCardIndex].classList.add(backOfCard)
-  
-
+  // console.log("on-screen array " + playerDeckArray)
 }
 
+function descriptionAppear(playerCard, comCard){
+  setTimeout(function(){
+  fightDescription.style.color='yellow';  
+  fightDescription.innerHTML=`You used ${playerCard} against Computer ${comCard}`
+  console.log(`You used ${playerCard} against Computer ${comCard}`)
+  }, 500);
+
+  setTimeout(function(){
+    fightDescription.style.color='transparent';  
+    }, 3000);
+
+  
+}

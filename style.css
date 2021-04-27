@@ -136,7 +136,23 @@
 #player-name {
   text-align: right;
   margin-right: 30px;
+  margin-left: 0;
+  width: 10%;
   
+}
+
+#fight-description {
+  text-align: center;
+  width: 80%;
+  color:  transparent;
+  /* color: yellow;
+  text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF; */
+  
+  
+}
+
+#com-name {
+  width: 10%;
 }
 
 #name-out-com {
