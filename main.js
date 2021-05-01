@@ -25,7 +25,7 @@ class Player {
   damage(enemy) {
     if (enemy.health !== 0) {
       enemy.health -= 20;
-      console.log(enemy.health);
+      // console.log(enemy.health);
     } else if (enemy.health === 0) {
       alert("You Win");
     }
@@ -61,7 +61,7 @@ window.onload = function () {
     chakraInstruction.style.display = "block";
 
     //Auto resize screen to 1350px by 800px
-    window.resizeTo(500, 500);
+    window.resizeTo(1350, 500);
 
     //Attach event handler on ChakraPlayNow Button
     chakraPlayNowBtn.onclick = (event) => {
@@ -91,13 +91,13 @@ window.onload = function () {
       //Create a deck with random element pushing it into player deck
       for (let i = 0; i < playerCells.length; i++) {
         playerDeckArray.push(randomElement());
-        console.log(playerDeckArray);
+        // console.log(playerDeckArray);
       }
 
       //Create a deck with random element pushing it into com deck
       for (let i = 0; i < comCells.length; i++) {
         comDeckArray.push(randomElement());
-        console.log(comDeckArray);
+        // console.log(comDeckArray);
       }
 
       //Make player cards appear in DOM
@@ -121,32 +121,54 @@ function handleSelect(event, index) {
   let comCard = enemyMove();
   let target = event.target;
   let playerCard = target.classList[2];
+  console.log(`this is playercard `+ playerCard)
+  console.log(`this is comCard ` + comCard)
 
   function replaceCardCallBack() {
     newCardGenerator(index);
   }
 
-  if (player.health !== 100 && playerCard === "health") {
-    player.health += 20;
-    playerHealthBar.style.width = `${player.health}%`;
-    playerHealthBar.innerHTML = `${player.health}%`;
-  } else if (computer.health !== 100 && comCard === "health") {
-    computer.health += 20;
-    comHealthBar.style.width = `${computer.health}%`;
-    comHealthBar.innerHTML = `${computer.health}%`;
-  } else if (playerCard === comCard) {
-    console.log("draw");
+  if(player.health !== 100 && playerCard === "health"){
+      player.health += 20;
+      playerHealthBar.style.width = `${player.health}%`;
+      playerHealthBar.innerHTML = `${player.health}%`;
+      descriptionAppear(playerCard, comCard);
+      setTimeout(replaceCardCallBack(), 500);
+      console.log("player add 20 health")
+      return
+  }else if(computer.health !== 100 && comCard === "health"){
+          computer.health += 20;
+          comHealthBar.style.width = `${computer.health}%`;
+          comHealthBar.innerHTML = `${computer.health}%`;
+          descriptionAppear(playerCard, comCard);
+          setTimeout(replaceCardCallBack(), 500);
+          console.log("computer add 20 health")
+          return
+        }
+
+  if(player.health === 100 && playerCard === "health"){
+    descriptionAppear(playerCard, comCard);
+    setTimeout(replaceCardCallBack(), 500);
+    console.log("No action taken as player health is full")
+    return
+  }else if(computer.health === 100 && comCard === "health"){
+    descriptionAppear(playerCard, comCard);
+    setTimeout(replaceCardCallBack(), 500);
+    console.log("No action taken as com health is full")
+    return
   }
 
-  descriptionAppear(playerCard, comCard);
-  setTimeout(replaceCardCallBack, 500);
-  if (playerCard === "health" || playerCard === comCard) {
-    return;
+  if(playerCard === comCard){
+    descriptionAppear(playerCard, comCard);
+    setTimeout(replaceCardCallBack(), 500);
+    console.log("Its a draw")
+    return
   }
 
-  playerWins(playerCard, comCard);
-  descriptionAppear(playerCard, comCard);
-  setTimeout(replaceCardCallBack, 500);
+
+  
+
+  playerWins(playerCard, comCard, index);
 }
 
 // function that returns a number between 0 to 3
@@ -159,6 +181,7 @@ function generateRandomIndex() {
 function enemyMove() {
   const randomIndex = generateRandomIndex(); // function for random index
   const comCard = comDeckArray[randomIndex];
+  console.log(`enemy move comCard ` + comCard)
   const randomComCells = comCells[randomIndex];
   randomComCells.setAttribute("class", `cell com-cell ${comCard}`);
   setTimeout(function () {
@@ -166,25 +189,14 @@ function enemyMove() {
   }, 3000);
   return comCard;
 
-  // const randomIndex = generateRandomIndex(); // function for random index
-  // //generate a random element from comdeckarray
-  // const comCard = comDeckArray[randomIndex];
-  // console.log("this is comCard " + comCard);
-  // console.log("this is comdeckarray" + comDeckArray);
-  // console.log("This is randomindex" + randomIndex);
-  // //generate a random htmlDiv Element
-  // const randomComCells = comCells[randomIndex];
-  // //let element appear in DOM by inserting class into HTML div element
-  // randomComCells.classList.add(comCard);
-  // //let DOM card be back of card
-  // setTimeout(function () {
-  //   randomComCells.classList.remove();
-  //   randomComCells.classList.add("back-of-card");
-  // }, 3000);
-  // return comCard;
 }
 
-function playerWins(playerCard, comCard) {
+function playerWins(playerCard, comCard, index) {
+  
+  function replaceCardCallBack() {
+    newCardGenerator(index);
+  }
+
   const losingRules = {
     fire: ["water", "earth"],
     water: ["earth", "lightning"],
@@ -200,12 +212,16 @@ function playerWins(playerCard, comCard) {
     playerHealthBar.style.width = `${player.health}%`;
     playerHealthBar.innerHTML = `${player.health}%`;
     checkWin();
+    descriptionAppear(playerCard, comCard);
+    setTimeout(replaceCardCallBack(), 500);
     console.log(`computer damage player`);
   } else {
     player.damage(computer);
     comHealthBar.style.width = `${computer.health}%`;
     comHealthBar.innerHTML = `${computer.health}%`;
     checkWin();
+    descriptionAppear(playerCard, comCard);
+    setTimeout(replaceCardCallBack(), 500);
     console.log(`player damage computer`);
   }
 }
@@ -214,34 +230,19 @@ function playerWins(playerCard, comCard) {
 function newCardGenerator(index) {
   console.log(index);
   playerDeckArray[index] = randomElement();
-  console.log(playerDeckArray[index]);
+  console.log("this is newGenerated player card" + playerDeckArray[index]);
   playerCells[index].setAttribute(
     "class",
-    `cell player-cell ${randomElement()}`
+    `cell player-cell ${playerDeckArray[index]}`
   );
 
-  // //random card
-  // let newCard = randomElement();
-  // //get playercard array index
-  // let playerCardIndex = index;
-  // console.log("this is player index " + index);
-  // console.log("this is player card " + playerCard);
-  // console.log("on-screen array " + playerDeckArray);
-  // //replace player card with newly generated card (in system array)
-  // console.log("this is playercard" + playerCard);
-  // playerDeckArray[playerCardIndex] = newCard;
-  // //replace player card with newly generated card (on-screen)
-  // //replace old classlist with new e.g. fire to water
-  // console.log("this is playerDeckArray[playerCardIndex] " + playerDeckArray[playerCardIndex]);
-  // playerCells[playerCardIndex].classList.remove(playerCard);
-  // playerCells[playerCardIndex].classList.add(newCard);
 }
 
 function descriptionAppear(playerCard, comCard) {
   setTimeout(function () {
     fightDescription.style.color = "yellow";
     fightDescription.innerHTML = `You used ${playerCard} against Computer ${comCard}`;
-    console.log(`You used ${playerCard} against Computer ${comCard}`);
+    // console.log(`You used ${playerCard} against Computer ${comCard}`);
   }, 500);
 
   setTimeout(function () {
