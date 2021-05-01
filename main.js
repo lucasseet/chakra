@@ -4,6 +4,9 @@ let playerHealthBar = document.querySelector("#player-health");
 let playerCells = document.querySelectorAll(".player-cell");
 let comCells = document.querySelectorAll(".com-cell");
 let fightDescription = document.querySelector("#fight-description");
+let winAlert = document.querySelector('#win');
+let loseAlert = document.querySelector('#lose');
+let playAgainBtn = document.querySelector('#play-again')
 
 //Chakra Elements
 let cardElements = ["fire", "water", "wind", "earth", "lightning", "health"];
@@ -106,6 +109,12 @@ window.onload = function () {
         card.classList.add(playerCard);
         card.addEventListener("click", (event) => handleSelect(event, index));
       });
+
+      //reset game and play again 
+      playAgainBtn.addEventListener("click", function(){
+        location.reload()
+      });
+
     };
   };
 };
@@ -169,6 +178,8 @@ function handleSelect(event, index) {
   
 
   playerWins(playerCard, comCard, index);
+  console.log(`this is com deck ` + comDeckArray) 
+  console.log(`this is player deck ` + playerDeckArray)
 }
 
 // function that returns a number between 0 to 3
@@ -187,6 +198,8 @@ function enemyMove() {
   setTimeout(function () {
     randomComCells.setAttribute("class", `cell com-cell back-of-card`);
   }, 3000);
+  comDeckArray[randomIndex] = randomElement()
+  console.log(`newlygenerate comCard to replace ` + comDeckArray[randomIndex])
   return comCard;
 
 }
@@ -252,9 +265,11 @@ function descriptionAppear(playerCard, comCard) {
 //check winning and alert who win
 function checkWin() {
   if (player.health === 0) {
-    alert("you lose");
+    loseAlert.style.display='block'
+    playAgainBtn.style.display='block'
   } else if (computer.health === 0) {
-    alert("You Win");
+    winAlert.style.display='block'
+    playAgainBtn.style.display='block'
   }
 }
 
@@ -262,3 +277,4 @@ function checkWin() {
 // function resetGame () {
 
 // }
+
