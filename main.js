@@ -4,11 +4,11 @@ let playerHealthBar = document.querySelector("#player-health");
 let playerCells = document.querySelectorAll(".player-cell");
 let comCells = document.querySelectorAll(".com-cell");
 let fightDescription = document.querySelector("#fight-description");
-let winAlert = document.querySelector('#win');
-let loseAlert = document.querySelector('#lose');
-let playAgainBtn = document.querySelector('#play-again')
-let comEffect = document.querySelector('#fire-effect')
-let playerEffect = document.querySelector('#fire-effect2')
+let winAlert = document.querySelector("#win");
+let loseAlert = document.querySelector("#lose");
+let playAgainBtn = document.querySelector("#play-again");
+let comEffect = document.querySelector("#fire-effect");
+let playerEffect = document.querySelector("#fire-effect2");
 
 //Chakra Elements
 let cardElements = ["fire", "water", "wind", "earth", "lightning", "health"];
@@ -112,11 +112,10 @@ window.onload = function () {
         card.addEventListener("click", (event) => handleSelect(event, index));
       });
 
-      //reset game and play again 
-      playAgainBtn.addEventListener("click", function(){
-        location.reload()
+      //reset game and play again
+      playAgainBtn.addEventListener("click", function () {
+        location.reload();
       });
-
     };
   };
 };
@@ -132,56 +131,53 @@ function handleSelect(event, index) {
   let comCard = enemyMove();
   let target = event.target;
   let playerCard = target.classList[2];
-  console.log(`this is playercard `+ playerCard)
-  console.log(`this is comCard ` + comCard)
+  console.log(`this is playercard ` + playerCard);
+  console.log(`this is comCard ` + comCard);
 
   function replaceCardCallBack() {
     newCardGenerator(index);
   }
 
-  if(player.health !== 100 && playerCard === "health"){
-      player.health += 20;
-      playerHealthBar.style.width = `${player.health}%`;
-      playerHealthBar.innerHTML = `${player.health}%`;
-      descriptionAppear(playerCard, comCard);
-      setTimeout(replaceCardCallBack(), 500);
-      console.log("player add 20 health")
-      return
-  }else if(computer.health !== 100 && comCard === "health"){
-          computer.health += 20;
-          comHealthBar.style.width = `${computer.health}%`;
-          comHealthBar.innerHTML = `${computer.health}%`;
-          descriptionAppear(playerCard, comCard);
-          setTimeout(replaceCardCallBack(), 500);
-          console.log("computer add 20 health")
-          return
-        }
-
-  if(player.health === 100 && playerCard === "health"){
+  if (player.health !== 100 && playerCard === "health") {
+    player.health += 20;
+    playerHealthBar.style.width = `${player.health}%`;
+    playerHealthBar.innerHTML = `${player.health}%`;
     descriptionAppear(playerCard, comCard);
     setTimeout(replaceCardCallBack(), 500);
-    console.log("No action taken as player health is full")
-    return
-  }else if(computer.health === 100 && comCard === "health"){
+    console.log("player add 20 health");
+    return;
+  } else if (computer.health !== 100 && comCard === "health") {
+    computer.health += 20;
+    comHealthBar.style.width = `${computer.health}%`;
+    comHealthBar.innerHTML = `${computer.health}%`;
     descriptionAppear(playerCard, comCard);
     setTimeout(replaceCardCallBack(), 500);
-    console.log("No action taken as com health is full")
-    return
+    console.log("computer add 20 health");
+    return;
   }
 
-  if(playerCard === comCard){
+  if (player.health === 100 && playerCard === "health") {
     descriptionAppear(playerCard, comCard);
     setTimeout(replaceCardCallBack(), 500);
-    console.log("Its a draw")
-    return
+    console.log("No action taken as player health is full");
+    return;
+  } else if (computer.health === 100 && comCard === "health") {
+    descriptionAppear(playerCard, comCard);
+    setTimeout(replaceCardCallBack(), 500);
+    console.log("No action taken as com health is full");
+    return;
   }
 
-
-  
+  if (playerCard === comCard) {
+    descriptionAppear(playerCard, comCard);
+    setTimeout(replaceCardCallBack(), 500);
+    console.log("Its a draw");
+    return;
+  }
 
   playerWins(playerCard, comCard, index);
-  console.log(`this is com deck ` + comDeckArray) 
-  console.log(`this is player deck ` + playerDeckArray)
+  console.log(`this is com deck ` + comDeckArray);
+  console.log(`this is player deck ` + playerDeckArray);
 }
 
 // function that returns a number between 0 to 3
@@ -194,20 +190,18 @@ function generateRandomIndex() {
 function enemyMove() {
   const randomIndex = generateRandomIndex(); // function for random index
   const comCard = comDeckArray[randomIndex];
-  console.log(`enemy move comCard ` + comCard)
+  console.log(`enemy move comCard ` + comCard);
   const randomComCells = comCells[randomIndex];
   randomComCells.setAttribute("class", `cell com-cell ${comCard}`);
   setTimeout(function () {
     randomComCells.setAttribute("class", `cell com-cell back-of-card`);
   }, 3000);
-  comDeckArray[randomIndex] = randomElement()
-  console.log(`newlygenerate comCard to replace ` + comDeckArray[randomIndex])
+  comDeckArray[randomIndex] = randomElement();
+  console.log(`newlygenerate comCard to replace ` + comDeckArray[randomIndex]);
   return comCard;
-
 }
 
 function playerWins(playerCard, comCard, index) {
-  
   function replaceCardCallBack() {
     newCardGenerator(index);
   }
@@ -226,9 +220,9 @@ function playerWins(playerCard, comCard, index) {
     computer.damage(player);
     playerHealthBar.style.width = `${player.health}%`;
     playerHealthBar.innerHTML = `${player.health}%`;
-    playerEffect.style.display='block'
-    setTimeout(function(){ 
-      playerEffect.style.display='none'; 
+    playerEffect.style.display = "block";
+    setTimeout(function () {
+      playerEffect.style.display = "none";
     }, 1200);
     checkWin();
     descriptionAppear(playerCard, comCard);
@@ -238,11 +232,11 @@ function playerWins(playerCard, comCard, index) {
     player.damage(computer);
     comHealthBar.style.width = `${computer.health}%`;
     comHealthBar.innerHTML = `${computer.health}%`;
-    comEffect.style.display='block'
-    setTimeout(function(){ 
-      comEffect.style.display='none'; 
+    comEffect.style.display = "block";
+    setTimeout(function () {
+      comEffect.style.display = "none";
     }, 1200);
-    
+
     checkWin();
     descriptionAppear(playerCard, comCard);
     setTimeout(replaceCardCallBack(), 500);
@@ -259,7 +253,6 @@ function newCardGenerator(index) {
     "class",
     `cell player-cell ${playerDeckArray[index]}`
   );
-
 }
 
 function descriptionAppear(playerCard, comCard) {
@@ -276,11 +269,10 @@ function descriptionAppear(playerCard, comCard) {
 //check winning and alert who win
 function checkWin() {
   if (player.health === 0) {
-    loseAlert.style.display='block'
-    playAgainBtn.style.display='block'
+    loseAlert.style.display = "block";
+    playAgainBtn.style.display = "block";
   } else if (computer.health === 0) {
-    winAlert.style.display='block'
-    playAgainBtn.style.display='block'
+    winAlert.style.display = "block";
+    playAgainBtn.style.display = "block";
   }
 }
-

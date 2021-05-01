@@ -143,8 +143,6 @@
   text-align: center;
   width: 80%;
   color: transparent;
-  /* color: yellow;
-  text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF; */
 }
 
 #com-name {
@@ -195,6 +193,9 @@
   top: 50%;
   left: 40%;
   display: none;
+  animation-name: blinks;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
 }
 
 #fire-effect{
@@ -218,6 +219,18 @@
 
 .on-off {
   display: none;
+}
+
+@keyframes blinks{
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 /* Chakra Element class */
