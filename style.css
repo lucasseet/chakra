@@ -197,6 +197,25 @@
   display: none;
 }
 
+#fire-effect{
+  content: url(assets/fire-effect.gif);
+  width: 290px;
+  position: absolute;
+  top: 8%;
+  left: 40%;
+  display: none;
+}
+
+#fire-effect2{
+  content: url(assets/fire-effect.gif);
+  width: 290px;
+  position: absolute;
+  top: 76%;
+  left: 40%;
+  display: none;
+}
+
+
 .on-off {
   display: none;
 }

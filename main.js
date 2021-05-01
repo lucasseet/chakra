@@ -7,6 +7,8 @@ let fightDescription = document.querySelector("#fight-description");
 let winAlert = document.querySelector('#win');
 let loseAlert = document.querySelector('#lose');
 let playAgainBtn = document.querySelector('#play-again')
+let comEffect = document.querySelector('#fire-effect')
+let playerEffect = document.querySelector('#fire-effect2')
 
 //Chakra Elements
 let cardElements = ["fire", "water", "wind", "earth", "lightning", "health"];
@@ -224,6 +226,10 @@ function playerWins(playerCard, comCard, index) {
     computer.damage(player);
     playerHealthBar.style.width = `${player.health}%`;
     playerHealthBar.innerHTML = `${player.health}%`;
+    playerEffect.style.display='block'
+    setTimeout(function(){ 
+      playerEffect.style.display='none'; 
+    }, 1200);
     checkWin();
     descriptionAppear(playerCard, comCard);
     setTimeout(replaceCardCallBack(), 500);
@@ -232,6 +238,11 @@ function playerWins(playerCard, comCard, index) {
     player.damage(computer);
     comHealthBar.style.width = `${computer.health}%`;
     comHealthBar.innerHTML = `${computer.health}%`;
+    comEffect.style.display='block'
+    setTimeout(function(){ 
+      comEffect.style.display='none'; 
+    }, 1200);
+    
     checkWin();
     descriptionAppear(playerCard, comCard);
     setTimeout(replaceCardCallBack(), 500);
@@ -272,9 +283,4 @@ function checkWin() {
     playAgainBtn.style.display='block'
   }
 }
-
-// //reset game when games end function
-// function resetGame () {
-
-// }
 
