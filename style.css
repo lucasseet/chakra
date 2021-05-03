@@ -216,6 +216,24 @@
   display: none;
 }
 
+#healing-effect{
+  content: url(assets/healing.gif);
+  width: 250px;
+  position: absolute;
+  top: 2%;
+  left: 41%;
+  display: none;
+}
+
+#healing-effect2{
+  content: url(assets/healing.gif);
+  width: 250px;
+  position: absolute;
+  top: 74%;
+  left: 40%;
+  display: none;
+}
+
 
 .on-off {
   display: none;

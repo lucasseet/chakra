@@ -12,6 +12,9 @@ let playerEffect = document.querySelector("#fire-effect2");
 let fireBallSound = document.querySelector('#fireball')
 let fireCracklingSound = document.querySelector('#fire-crackling')
 let bgmSound = document.querySelector('#bgm')
+let healSound = document.querySelector('#heal')
+let comHealEffect = document.querySelector('#healing-effect')
+let playerHealEffect = document.querySelector('#healing-effect2')
 
 //Chakra Elements
 let cardElements = ["fire", "water", "wind", "earth", "lightning", "health"];
@@ -155,6 +158,11 @@ function handleSelect(event, index) {
 
   if (player.health !== 100 && playerCard === "health") {
     player.health += 20;
+    playHealSound()
+    playerHealEffect.style.display="block"
+    setTimeout(function () {
+      playerHealEffect.style.display = "none";
+    }, 1100);
     playerHealthBar.style.width = `${player.health}%`;
     playerHealthBar.innerHTML = `${player.health}%`;
     descriptionAppear(playerCard, comCard);
@@ -163,6 +171,11 @@ function handleSelect(event, index) {
     return;
   } else if (computer.health !== 100 && comCard === "health") {
     computer.health += 20;
+    playHealSound()
+    comHealEffect.style.display="block"
+    setTimeout(function () {
+      comHealEffect.style.display = "none";
+    }, 1100);
     comHealthBar.style.width = `${computer.health}%`;
     comHealthBar.innerHTML = `${computer.health}%`;
     descriptionAppear(playerCard, comCard);
@@ -298,6 +311,11 @@ function playFireBallSound() {
   fireBallSound.play()
 }
 
+function playHealSound() {
+  healSound.play()
+}
+
 function playBgmSound() {
   bgmSound.play()
+  bgmSound.loop = true
 }
