@@ -9,6 +9,9 @@ let loseAlert = document.querySelector("#lose");
 let playAgainBtn = document.querySelector("#play-again");
 let comEffect = document.querySelector("#fire-effect");
 let playerEffect = document.querySelector("#fire-effect2");
+let fireBallSound = document.querySelector('#fireball')
+let fireCracklingSound = document.querySelector('#fire-crackling')
+let bgmSound = document.querySelector('#bgm')
 
 //Chakra Elements
 let cardElements = ["fire", "water", "wind", "earth", "lightning", "health"];
@@ -40,8 +43,12 @@ class Player {
 let computer = new Player("Com", 100);
 let player = new Player("player", 100);
 
+
 window.onload = function () {
   console.log("All Linked!");
+
+
+  
 
   //Global Scope
   let landingPagePlayNow = document.querySelector("#landing-button");
@@ -55,10 +62,18 @@ window.onload = function () {
   let playerNameDoor = document.querySelector("#name-out-player");
   let comCells = document.querySelectorAll(".com-cell");
   let playerCells = document.querySelectorAll(".player-cell");
-
+  let screenInstruction = document.querySelector('#screen-instruction')
+  
+  screenInstruction.onclick = (event) => {
+    event.preventDefault();
+    fireCracklingSound.play()
+  }
   //Attached event handler to Landing page playnow button
   landingPagePlayNow.onclick = (event) => {
     event.preventDefault();
+    playBgmSound()
+    fireCracklingSound.pause()
+    
 
     //Transit landing page to chakra instruction page
     landingPageDiv.style.display = "none";
@@ -218,6 +233,7 @@ function playerWins(playerCard, comCard, index) {
 
   if (elementsThatDefeatPlayer.includes(comCard)) {
     computer.damage(player);
+    playFireBallSound()
     playerHealthBar.style.width = `${player.health}%`;
     playerHealthBar.innerHTML = `${player.health}%`;
     playerEffect.style.display = "block";
@@ -230,6 +246,7 @@ function playerWins(playerCard, comCard, index) {
     console.log(`computer damage player`);
   } else {
     player.damage(computer);
+    playFireBallSound()
     comHealthBar.style.width = `${computer.health}%`;
     comHealthBar.innerHTML = `${computer.health}%`;
     comEffect.style.display = "block";
@@ -275,4 +292,12 @@ function checkWin() {
     winAlert.style.display = "block";
     playAgainBtn.style.display = "block";
   }
+}
+
+function playFireBallSound() {
+  fireBallSound.play()
+}
+
+function playBgmSound() {
+  bgmSound.play()
 }
