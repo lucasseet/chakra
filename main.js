@@ -9,12 +9,16 @@ let loseAlert = document.querySelector("#lose");
 let playAgainBtn = document.querySelector("#play-again");
 let comEffect = document.querySelector("#fire-effect");
 let playerEffect = document.querySelector("#fire-effect2");
+let playerDrawEffect = document.querySelector("#draw-effect");
+let comDrawEffect = document.querySelector("#draw-effect2");
 let fireBallSound = document.querySelector('#fireball')
 let fireCracklingSound = document.querySelector('#fire-crackling')
 let bgmSound = document.querySelector('#bgm')
 let healSound = document.querySelector('#heal')
 let comHealEffect = document.querySelector('#healing-effect')
 let playerHealEffect = document.querySelector('#healing-effect2')
+let drawSound = document.querySelector('#draw')
+
 
 //Chakra Elements
 let cardElements = ["fire", "water", "wind", "earth", "lightning", "health"];
@@ -65,9 +69,10 @@ window.onload = function () {
   let playerNameDoor = document.querySelector("#name-out-player");
   let comCells = document.querySelectorAll(".com-cell");
   let playerCells = document.querySelectorAll(".player-cell");
-  let screenInstruction = document.querySelector('#screen-instruction')
+  let speaker = document.querySelector('#speaker')
   
-  screenInstruction.onclick = (event) => {
+  //Attached event handler on speakerIcon for intro music 
+  speaker.onclick = (event) => {
     event.preventDefault();
     fireCracklingSound.play()
   }
@@ -186,11 +191,21 @@ function handleSelect(event, index) {
 
   if (player.health === 100 && playerCard === "health") {
     descriptionAppear(playerCard, comCard);
+    playHealSound()
+    playerHealEffect.style.display="block"
+    setTimeout(function () {
+      playerHealEffect.style.display="none";
+    }, 1300);
     setTimeout(replaceCardCallBack(), 500);
     console.log("No action taken as player health is full");
     return;
   } else if (computer.health === 100 && comCard === "health") {
     descriptionAppear(playerCard, comCard);
+    playHealSound()
+    comHealEffect.style.display="block"
+    setTimeout(function () {
+      comHealEffect.style.display="none";
+    }, 1300);
     setTimeout(replaceCardCallBack(), 500);
     console.log("No action taken as com health is full");
     return;
@@ -198,6 +213,15 @@ function handleSelect(event, index) {
 
   if (playerCard === comCard) {
     descriptionAppear(playerCard, comCard);
+    playDrawSound()
+    comDrawEffect.style.display="block"
+    setTimeout(function () {
+      comDrawEffect.style.display="none";
+    }, 1300);
+    playerDrawEffect.style.display="block"
+    setTimeout(function () {
+      playerDrawEffect.style.display="none";
+    }, 1300);
     setTimeout(replaceCardCallBack(), 500);
     console.log("Its a draw");
     return;
@@ -313,6 +337,10 @@ function playFireBallSound() {
 
 function playHealSound() {
   healSound.play()
+}
+
+function playDrawSound() {
+  drawSound.play()
 }
 
 function playBgmSound() {

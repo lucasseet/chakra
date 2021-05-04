@@ -234,6 +234,32 @@
   display: none;
 }
 
+#draw-effect{
+  content: url(assets/draw.gif);
+  width: 212px;
+  position: absolute;
+  top: 74%;
+  left: 43%;
+  display: none;
+}
+
+#draw-effect2{
+  content: url(assets/draw.gif);
+  width: 212px;
+  position: absolute;
+  top: 2%;
+  left: 43%;
+  display: none;
+}
+
+#speaker{
+  content: url(assets/speaker.png);
+  width: 33px;
+  position: absolute;
+  top: 86%;
+  left: 49%;
+}
+
 
 .on-off {
   display: none;
