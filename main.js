@@ -82,9 +82,7 @@ window.onload = function () {
     playBgmSound()
     fireCracklingSound.pause()
     const myWindow = window.open("https://lucasseet.github.io/chakra/", "_blank", "width=1350,height=800");
-    return myWindow
-    // myWindow.focus(); 
-    // myWindow.resizeTo(1350, 800) 
+    myWindow.resizeTo(1350, 800) 
 
     //Transit landing page to chakra instruction page
     landingPageDiv.style.display = "none";
@@ -92,8 +90,8 @@ window.onload = function () {
     chakraInstruction.style.display = "block";
     // myWindow.top.close();
 
-    //Auto resize screen to 1350px by 800px
-    // window.resizeTo(1350, 800);
+    // Auto resize screen to 1350px by 800px
+    myWindow.resizeTo(1350, 800);
 
     //Attach event handler on ChakraPlayNow Button
     chakraPlayNowBtn.onclick = (event) => {
