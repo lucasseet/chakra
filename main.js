@@ -83,13 +83,13 @@ window.onload = function () {
     fireCracklingSound.pause()
     openWin()
     resizeWin()
-    
+    window.close();
 
     // //Transit landing page to chakra instruction page
     // landingPageDiv.style.display = "none";
     // backgroundImage.style.display = "block";
     // chakraInstruction.style.display = "block";
-    window.top.close();
+    
 
     // Auto resize screen to 1350px by 800px
     // myWindow.resizeTo(1350, 800);
