@@ -345,10 +345,10 @@ window.onload = function () {
 //   drawSound.play()
 // }
 
-function playBgmSound() {
-  bgmSound.play()
-  bgmSound.loop = true
-}
+// function playBgmSound() {
+//   bgmSound.play()
+//   bgmSound.loop = true
+// }
 
 function openWin() {
   myWindow = window.open("https://lucasseet.github.io/chakra/game.html", "", "width=100, height=100");  // Opens a new window

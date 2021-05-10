@@ -80,7 +80,7 @@ window.onload = function () {
   // landingPagePlayNow.onclick = (event) => {
   //   event.preventDefault();
     // playBgmSound()
-    fireCracklingSound.pause()
+    // fireCracklingSound.pause()
   //   const myWindow = window.open("game.html", "_blank", "width=1350,height=800");
   //   myWindow.resizeTo(1350, 800) 
 
