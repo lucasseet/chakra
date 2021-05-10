@@ -88,7 +88,7 @@ window.onload = function () {
     // landingPageDiv.style.display = "none";
     // backgroundImage.style.display = "block";
     chakraInstruction.style.display = "block";
-    // myWindow.top.close();
+    myWindow.top.close();
 
     // Auto resize screen to 1350px by 800px
     // myWindow.resizeTo(1350, 800);
