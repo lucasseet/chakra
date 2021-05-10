@@ -79,7 +79,7 @@ window.onload = function () {
   //Attached event handler to Landing page playnow button
   landingPagePlayNow.onclick = (event) => {
     event.preventDefault();
-    playBgmSound()
+    // playBgmSound()
     fireCracklingSound.pause()
     openWin()
     resizeWin()
