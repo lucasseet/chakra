@@ -81,271 +81,281 @@ window.onload = function () {
     event.preventDefault();
     playBgmSound()
     fireCracklingSound.pause()
-    const myWindow = window.open("https://lucasseet.github.io/chakra/", "_blank", "width=1350,height=800");
-    myWindow.resizeTo(1350, 800) 
+    openWin()
+    resizeWin()
+    
 
-    //Transit landing page to chakra instruction page
-    landingPageDiv.style.display = "none";
-    backgroundImage.style.display = "block";
-    chakraInstruction.style.display = "block";
-    // myWindow.top.close();
+    // //Transit landing page to chakra instruction page
+    // landingPageDiv.style.display = "none";
+    // backgroundImage.style.display = "block";
+    // chakraInstruction.style.display = "block";
+    window.top.close();
 
     // Auto resize screen to 1350px by 800px
-    myWindow.resizeTo(1350, 800);
-
-    //Attach event handler on ChakraPlayNow Button
-    chakraPlayNowBtn.onclick = (event) => {
-      event.preventDefault();
-
-      //Get name value, and trim away whitespaces
-      let nameVal = nameInput.value;
-      nameVal = nameVal.trim();
-      nameVal = nameVal.toUpperCase();
-
-      //perform validation
-      if (nameVal === "") {
-        alert("Please enter your name");
-        return;
-      }
-
-      //Transit from ChakraInstruction to GameMap
-      chakraInstruction.style.display = "none";
-      gameElements.style.display = "block";
-
-      //Insert nameValue onto healthbar & door [IF IT HAS LONG NAME IT DOESNT CENTRALIZE]
-      playerName.innerText = nameVal;
-      playerNameDoor.innerText = nameVal;
-
-      // Start Game, Distribute cards
-
-      //Create a deck with random element pushing it into player deck
-      for (let i = 0; i < playerCells.length; i++) {
-        playerDeckArray.push(randomElement());
-        // console.log(playerDeckArray);
-      }
-
-      //Create a deck with random element pushing it into com deck
-      for (let i = 0; i < comCells.length; i++) {
-        comDeckArray.push(randomElement());
-        // console.log(comDeckArray);
-      }
-
-      //Make player cards appear in DOM
-      playerCells.forEach((card, index) => {
-        const playerCard = playerDeckArray[index];
-        card.classList.add(playerCard);
-        card.addEventListener("click", (event) => handleSelect(event, index));
-      });
-
-      //reset game and play again
-      playAgainBtn.addEventListener("click", function () {
-        location.reload();
-      });
-    };
+    // myWindow.resizeTo(1350, 800);
   };
-};
+//   //  //Attach event handler on ChakraPlayNow Button
+//   //  chakraPlayNowBtn.onclick = (event) => {
+//   //   event.preventDefault();
 
-//Get random element -> generate random number btn 0 & length of element
-function randomElement() {
-  let randomNum = Math.floor(Math.random() * cardElements.length);
-  return cardElements[randomNum];
-}
+//   //   //Get name value, and trim away whitespaces
+//   //   let nameVal = nameInput.value;
+//   //   nameVal = nameVal.trim();
+//   //   nameVal = nameVal.toUpperCase();
 
-// Player Clicks
-function handleSelect(event, index) {
-  let comCard = enemyMove();
-  let target = event.target;
-  let playerCard = target.classList[2];
-  console.log(`this is playercard ` + playerCard);
-  console.log(`this is comCard ` + comCard);
+//   //   //perform validation
+//   //   if (nameVal === "") {
+//   //     alert("Please enter your name");
+//   //     return;
+//   //   }
 
-  function replaceCardCallBack() {
-    newCardGenerator(index);
-  }
+//   //   //Transit from ChakraInstruction to GameMap
+//   //   chakraInstruction.style.display = "none";
+//   //   gameElements.style.display = "block";
 
-  if (player.health !== 100 && playerCard === "health") {
-    player.health += 20;
-    playHealSound()
-    playerHealEffect.style.display="block"
-    setTimeout(function () {
-      playerHealEffect.style.display = "none";
-    }, 1100);
-    playerHealthBar.style.width = `${player.health}%`;
-    playerHealthBar.innerHTML = `${player.health}%`;
-    descriptionAppear(playerCard, comCard);
-    setTimeout(replaceCardCallBack(), 500);
-    console.log("player add 20 health");
-    return;
-  } else if (computer.health !== 100 && comCard === "health") {
-    computer.health += 20;
-    playHealSound()
-    comHealEffect.style.display="block"
-    setTimeout(function () {
-      comHealEffect.style.display = "none";
-    }, 1100);
-    comHealthBar.style.width = `${computer.health}%`;
-    comHealthBar.innerHTML = `${computer.health}%`;
-    descriptionAppear(playerCard, comCard);
-    setTimeout(replaceCardCallBack(), 500);
-    console.log("computer add 20 health");
-    return;
-  }
+//   //   //Insert nameValue onto healthbar & door [IF IT HAS LONG NAME IT DOESNT CENTRALIZE]
+//   //   playerName.innerText = nameVal;
+//   //   playerNameDoor.innerText = nameVal;
 
-  if (player.health === 100 && playerCard === "health") {
-    descriptionAppear(playerCard, comCard);
-    playHealSound()
-    playerHealEffect.style.display="block"
-    setTimeout(function () {
-      playerHealEffect.style.display="none";
-    }, 1300);
-    setTimeout(replaceCardCallBack(), 500);
-    console.log("No action taken as player health is full");
-    return;
-  } else if (computer.health === 100 && comCard === "health") {
-    descriptionAppear(playerCard, comCard);
-    playHealSound()
-    comHealEffect.style.display="block"
-    setTimeout(function () {
-      comHealEffect.style.display="none";
-    }, 1300);
-    setTimeout(replaceCardCallBack(), 500);
-    console.log("No action taken as com health is full");
-    return;
-  }
+//   //   // Start Game, Distribute cards
 
-  if (playerCard === comCard) {
-    descriptionAppear(playerCard, comCard);
-    playDrawSound()
-    comDrawEffect.style.display="block"
-    setTimeout(function () {
-      comDrawEffect.style.display="none";
-    }, 1300);
-    playerDrawEffect.style.display="block"
-    setTimeout(function () {
-      playerDrawEffect.style.display="none";
-    }, 1300);
-    setTimeout(replaceCardCallBack(), 500);
-    console.log("Its a draw");
-    return;
-  }
+//   //   //Create a deck with random element pushing it into player deck
+//   //   for (let i = 0; i < playerCells.length; i++) {
+//   //     playerDeckArray.push(randomElement());
+//   //     // console.log(playerDeckArray);
+//   //   }
 
-  playerWins(playerCard, comCard, index);
-  console.log(`this is com deck ` + comDeckArray);
-  console.log(`this is player deck ` + playerDeckArray);
-}
+//   //   //Create a deck with random element pushing it into com deck
+//   //   for (let i = 0; i < comCells.length; i++) {
+//   //     comDeckArray.push(randomElement());
+//   //     // console.log(comDeckArray);
+//   //   }
 
-// function that returns a number between 0 to 3
-function generateRandomIndex() {
-  let randomNum = Math.floor(Math.random() * 4);
-  return randomNum;
-}
+//   //   //Make player cards appear in DOM
+//   //   playerCells.forEach((card, index) => {
+//   //     const playerCard = playerDeckArray[index];
+//   //     card.classList.add(playerCard);
+//   //     card.addEventListener("click", (event) => handleSelect(event, index));
+//   //   });
 
-// Enemy move
-function enemyMove() {
-  const randomIndex = generateRandomIndex(); // function for random index
-  const comCard = comDeckArray[randomIndex];
-  console.log(`enemy move comCard ` + comCard);
-  const randomComCells = comCells[randomIndex];
-  randomComCells.setAttribute("class", `cell com-cell ${comCard}`);
-  setTimeout(function () {
-    randomComCells.setAttribute("class", `cell com-cell back-of-card`);
-  }, 3000);
-  comDeckArray[randomIndex] = randomElement();
-  console.log(`newlygenerate comCard to replace ` + comDeckArray[randomIndex]);
-  return comCard;
-}
+//   //   //reset game and play again
+//   //   playAgainBtn.addEventListener("click", function () {
+//   //     location.reload();
+//   //   });
+//   // };
+// };
 
-function playerWins(playerCard, comCard, index) {
-  function replaceCardCallBack() {
-    newCardGenerator(index);
-  }
+// //Get random element -> generate random number btn 0 & length of element
+// function randomElement() {
+//   let randomNum = Math.floor(Math.random() * cardElements.length);
+//   return cardElements[randomNum];
+// }
 
-  const losingRules = {
-    fire: ["water", "earth"],
-    water: ["earth", "lightning"],
-    earth: ["wind", "lightning"],
-    lightning: ["wind", "fire"],
-    wind: ["fire", "water"],
-  };
-  // console.log('this is commm card ' + comCard)
-  const elementsThatDefeatPlayer = losingRules[playerCard];
+// // Player Clicks
+// function handleSelect(event, index) {
+//   let comCard = enemyMove();
+//   let target = event.target;
+//   let playerCard = target.classList[2];
+//   console.log(`this is playercard ` + playerCard);
+//   console.log(`this is comCard ` + comCard);
 
-  if (elementsThatDefeatPlayer.includes(comCard)) {
-    computer.damage(player);
-    playFireBallSound()
-    playerHealthBar.style.width = `${player.health}%`;
-    playerHealthBar.innerHTML = `${player.health}%`;
-    playerEffect.style.display = "block";
-    setTimeout(function () {
-      playerEffect.style.display = "none";
-    }, 1200);
-    checkWin();
-    descriptionAppear(playerCard, comCard);
-    setTimeout(replaceCardCallBack(), 500);
-    console.log(`computer damage player`);
-  } else {
-    player.damage(computer);
-    playFireBallSound()
-    comHealthBar.style.width = `${computer.health}%`;
-    comHealthBar.innerHTML = `${computer.health}%`;
-    comEffect.style.display = "block";
-    setTimeout(function () {
-      comEffect.style.display = "none";
-    }, 1200);
+//   function replaceCardCallBack() {
+//     newCardGenerator(index);
+//   }
 
-    checkWin();
-    descriptionAppear(playerCard, comCard);
-    setTimeout(replaceCardCallBack(), 500);
-    console.log(`player damage computer`);
-  }
-}
+//   if (player.health !== 100 && playerCard === "health") {
+//     player.health += 20;
+//     playHealSound()
+//     playerHealEffect.style.display="block"
+//     setTimeout(function () {
+//       playerHealEffect.style.display = "none";
+//     }, 1100);
+//     playerHealthBar.style.width = `${player.health}%`;
+//     playerHealthBar.innerHTML = `${player.health}%`;
+//     descriptionAppear(playerCard, comCard);
+//     setTimeout(replaceCardCallBack(), 500);
+//     console.log("player add 20 health");
+//     return;
+//   } else if (computer.health !== 100 && comCard === "health") {
+//     computer.health += 20;
+//     playHealSound()
+//     comHealEffect.style.display="block"
+//     setTimeout(function () {
+//       comHealEffect.style.display = "none";
+//     }, 1100);
+//     comHealthBar.style.width = `${computer.health}%`;
+//     comHealthBar.innerHTML = `${computer.health}%`;
+//     descriptionAppear(playerCard, comCard);
+//     setTimeout(replaceCardCallBack(), 500);
+//     console.log("computer add 20 health");
+//     return;
+//   }
 
-//function to replace old with new card
-function newCardGenerator(index) {
-  console.log(index);
-  playerDeckArray[index] = randomElement();
-  console.log("this is newGenerated player card" + playerDeckArray[index]);
-  playerCells[index].setAttribute(
-    "class",
-    `cell player-cell ${playerDeckArray[index]}`
-  );
-}
+//   if (player.health === 100 && playerCard === "health") {
+//     descriptionAppear(playerCard, comCard);
+//     playHealSound()
+//     playerHealEffect.style.display="block"
+//     setTimeout(function () {
+//       playerHealEffect.style.display="none";
+//     }, 1300);
+//     setTimeout(replaceCardCallBack(), 500);
+//     console.log("No action taken as player health is full");
+//     return;
+//   } else if (computer.health === 100 && comCard === "health") {
+//     descriptionAppear(playerCard, comCard);
+//     playHealSound()
+//     comHealEffect.style.display="block"
+//     setTimeout(function () {
+//       comHealEffect.style.display="none";
+//     }, 1300);
+//     setTimeout(replaceCardCallBack(), 500);
+//     console.log("No action taken as com health is full");
+//     return;
+//   }
 
-function descriptionAppear(playerCard, comCard) {
-  setTimeout(function () {
-    fightDescription.style.color = "yellow";
-    fightDescription.innerHTML = `You used ${playerCard} against Computer ${comCard}`;
-    // console.log(`You used ${playerCard} against Computer ${comCard}`);
-  }, 500);
+//   if (playerCard === comCard) {
+//     descriptionAppear(playerCard, comCard);
+//     playDrawSound()
+//     comDrawEffect.style.display="block"
+//     setTimeout(function () {
+//       comDrawEffect.style.display="none";
+//     }, 1300);
+//     playerDrawEffect.style.display="block"
+//     setTimeout(function () {
+//       playerDrawEffect.style.display="none";
+//     }, 1300);
+//     setTimeout(replaceCardCallBack(), 500);
+//     console.log("Its a draw");
+//     return;
+//   }
 
-  setTimeout(function () {
-    fightDescription.style.color = "transparent";
-  }, 3000);
-}
-//check winning and alert who win
-function checkWin() {
-  if (player.health === 0) {
-    loseAlert.style.display = "block";
-    playAgainBtn.style.display = "block";
-  } else if (computer.health === 0) {
-    winAlert.style.display = "block";
-    playAgainBtn.style.display = "block";
-  }
-}
+//   playerWins(playerCard, comCard, index);
+//   console.log(`this is com deck ` + comDeckArray);
+//   console.log(`this is player deck ` + playerDeckArray);
+// }
 
-function playFireBallSound() {
-  fireBallSound.play()
-}
+// // function that returns a number between 0 to 3
+// function generateRandomIndex() {
+//   let randomNum = Math.floor(Math.random() * 4);
+//   return randomNum;
+// }
 
-function playHealSound() {
-  healSound.play()
-}
+// // Enemy move
+// function enemyMove() {
+//   const randomIndex = generateRandomIndex(); // function for random index
+//   const comCard = comDeckArray[randomIndex];
+//   console.log(`enemy move comCard ` + comCard);
+//   const randomComCells = comCells[randomIndex];
+//   randomComCells.setAttribute("class", `cell com-cell ${comCard}`);
+//   setTimeout(function () {
+//     randomComCells.setAttribute("class", `cell com-cell back-of-card`);
+//   }, 3000);
+//   comDeckArray[randomIndex] = randomElement();
+//   console.log(`newlygenerate comCard to replace ` + comDeckArray[randomIndex]);
+//   return comCard;
+// }
 
-function playDrawSound() {
-  drawSound.play()
-}
+// function playerWins(playerCard, comCard, index) {
+//   function replaceCardCallBack() {
+//     newCardGenerator(index);
+//   }
+
+//   const losingRules = {
+//     fire: ["water", "earth"],
+//     water: ["earth", "lightning"],
+//     earth: ["wind", "lightning"],
+//     lightning: ["wind", "fire"],
+//     wind: ["fire", "water"],
+//   };
+//   // console.log('this is commm card ' + comCard)
+//   const elementsThatDefeatPlayer = losingRules[playerCard];
+
+//   if (elementsThatDefeatPlayer.includes(comCard)) {
+//     computer.damage(player);
+//     playFireBallSound()
+//     playerHealthBar.style.width = `${player.health}%`;
+//     playerHealthBar.innerHTML = `${player.health}%`;
+//     playerEffect.style.display = "block";
+//     setTimeout(function () {
+//       playerEffect.style.display = "none";
+//     }, 1200);
+//     checkWin();
+//     descriptionAppear(playerCard, comCard);
+//     setTimeout(replaceCardCallBack(), 500);
+//     console.log(`computer damage player`);
+//   } else {
+//     player.damage(computer);
+//     playFireBallSound()
+//     comHealthBar.style.width = `${computer.health}%`;
+//     comHealthBar.innerHTML = `${computer.health}%`;
+//     comEffect.style.display = "block";
+//     setTimeout(function () {
+//       comEffect.style.display = "none";
+//     }, 1200);
+
+//     checkWin();
+//     descriptionAppear(playerCard, comCard);
+//     setTimeout(replaceCardCallBack(), 500);
+//     console.log(`player damage computer`);
+//   }
+// }
+
+// //function to replace old with new card
+// function newCardGenerator(index) {
+//   console.log(index);
+//   playerDeckArray[index] = randomElement();
+//   console.log("this is newGenerated player card" + playerDeckArray[index]);
+//   playerCells[index].setAttribute(
+//     "class",
+//     `cell player-cell ${playerDeckArray[index]}`
+//   );
+// }
+
+// function descriptionAppear(playerCard, comCard) {
+//   setTimeout(function () {
+//     fightDescription.style.color = "yellow";
+//     fightDescription.innerHTML = `You used ${playerCard} against Computer ${comCard}`;
+//     // console.log(`You used ${playerCard} against Computer ${comCard}`);
+//   }, 500);
+
+//   setTimeout(function () {
+//     fightDescription.style.color = "transparent";
+//   }, 3000);
+// }
+// //check winning and alert who win
+// function checkWin() {
+//   if (player.health === 0) {
+//     loseAlert.style.display = "block";
+//     playAgainBtn.style.display = "block";
+//   } else if (computer.health === 0) {
+//     winAlert.style.display = "block";
+//     playAgainBtn.style.display = "block";
+//   }
+// }
+
+// function playFireBallSound() {
+//   fireBallSound.play()
+// }
+
+// function playHealSound() {
+//   healSound.play()
+// }
+
+// function playDrawSound() {
+//   drawSound.play()
+// }
 
 function playBgmSound() {
   bgmSound.play()
   bgmSound.loop = true
+}
+
+function openWin() {
+  myWindow = window.open("http://lucasseet.github.io/chakra/game.html", "", "width=100, height=100");  // Opens a new window
+}
+
+function resizeWin() {
+  myWindow.resizeTo(1350, 800);                             // Resizes the new window
+  myWindow.focus();                                        // Sets focus to the new window
+}
 }
