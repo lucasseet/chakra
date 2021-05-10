@@ -89,7 +89,7 @@ window.onload = function () {
     // landingPageDiv.style.display = "none";
     // backgroundImage.style.display = "block";
     // chakraInstruction.style.display = "block";
-    // window.top.close();
+    window.top.close();
 
     // Auto resize screen to 1350px by 800px
     // myWindow.resizeTo(1350, 800);
@@ -351,7 +351,7 @@ function playBgmSound() {
 }
 
 function openWin() {
-  myWindow = window.open("http://lucasseet.github.io/chakra/game.html", "", "width=100, height=100");  // Opens a new window
+  myWindow = window.open("https://lucasseet.github.io/chakra/game.html", "", "width=100, height=100");  // Opens a new window
 }
 
 function resizeWin() {
